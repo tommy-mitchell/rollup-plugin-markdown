@@ -51,15 +51,22 @@ const markdownPlugin = (options = {}) => {
         parseFrontMatterNested(matterResult.data)
       }
 
-      const exportFromModule = JSON.stringify({
-        html,
+      const meta = {
         metadata: matterResult.data,
         filename: path.basename(id),
         path: id,
+      }
+
+      const exportFromModule = JSON.stringify({
+        html,
+        ...meta,
       })
 
       return {
-        code: allowImports ? `export default ${exportFromModule}` : exportFromModule,
+        code: allowImports ? `export default ${exportFromModule}` : html,
+        meta: {
+          markdown: meta,
+        },
         map: { mappings: '' },
       }
     },

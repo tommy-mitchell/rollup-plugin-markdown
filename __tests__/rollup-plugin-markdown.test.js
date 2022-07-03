@@ -40,6 +40,22 @@ const bundleFileAndGetCode = async rollupConfig => {
   return code
 }
 
+const expectedMetadata = {
+  layout: 'post',
+  title: 'Avoiding recursive useEffect hooks in React',
+  intro: 'A short post today about an easy tactic to avoid your <em>useEffect</em> calls becoming recursive when setting state.',
+  about: [
+    {
+      author: 'John Doe'
+    },
+    {
+      keywords: ['React', 'useEffect', 'recursion']
+    },
+  ]
+}
+const expectedFilename = 'test.md'
+const expectedPath = path.resolve(path.join(__dirname, 'fixtures/test.md'))
+
 it('returns a module for the markdown file', async () => {
   const code = await bundleFileAndGetCode({
     input: 'fixtures/test.md',
@@ -53,21 +69,9 @@ it('returns a module for the markdown file', async () => {
   const requiredModule = requireFromString(code)
 
   expect(requiredModule.html).toMatchSnapshot()
-  expect(requiredModule.metadata).toEqual({
-    layout: 'post',
-    title: 'Avoiding recursive useEffect hooks in React',
-    intro: 'A short post today about an easy tactic to avoid your <em>useEffect</em> calls becoming recursive when setting state.',
-    about: [
-      {
-        author: 'John Doe'
-      },
-      {
-        keywords: ['React', 'useEffect', 'recursion']
-      },
-    ]
-  })
-  expect(requiredModule.filename).toEqual('test.md')
-  expect(requiredModule.path).toEqual(path.resolve(path.join(__dirname, 'fixtures/test.md')))
+  expect(requiredModule.metadata).toEqual(expectedMetadata)
+  expect(requiredModule.filename).toEqual(expectedFilename)
+  expect(requiredModule.path).toEqual(expectedPath)
 })
 
 it('does not return a module for the markdown file', async () => {
@@ -83,4 +87,27 @@ it('does not return a module for the markdown file', async () => {
   ).rejects.toThrow(
     'Unexpected token (Note that you need plugins to import files that are not JavaScript)'
   )
+})
+
+it('passed meta-data through Rollup', async () => {
+  let rollupMetaData;
+
+  await bundleFileAndGetCode({
+    input: 'fixtures/test.md',
+    plugins: [
+      markdownPlugin({
+        parseFrontMatterAsMarkdown: true,
+      }),
+      {
+        name: 'test-meta-data',
+        moduleParsed(moduleInfo) {
+          rollupMetaData = moduleInfo.meta.markdown
+        },
+      },
+    ],
+  })
+
+  expect(rollupMetaData.metadata).toEqual(expectedMetadata)
+  expect(rollupMetaData.filename).toEqual(expectedFilename)
+  expect(rollupMetaData.path).toEqual(expectedPath)
 })
