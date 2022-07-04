@@ -49,7 +49,11 @@ const expectedMetadata = {
       author: 'John Doe'
     },
     {
-      keywords: ['React', 'useEffect', 'recursion']
+      keywords: [
+        'React',
+        'useEffect',
+        'recursion'
+      ]
     },
   ]
 }
@@ -89,7 +93,7 @@ it('does not return a module for the markdown file', async () => {
   )
 })
 
-it('passed meta-data through Rollup', async () => {
+it('passes meta-data through Rollup', async () => {
   let rollupMetaData;
 
   await bundleFileAndGetCode({
@@ -110,4 +114,25 @@ it('passed meta-data through Rollup', async () => {
   expect(rollupMetaData.metadata).toEqual(expectedMetadata)
   expect(rollupMetaData.filename).toEqual(expectedFilename)
   expect(rollupMetaData.path).toEqual(expectedPath)
+})
+
+it('adds a Showdown extension', async () => {
+  const code = await bundleFileAndGetCode({
+    input: 'fixtures/markdown.md',
+    plugins: [
+      markdownPlugin({
+        showdownExtensions: {
+          "Markdown to Showdown": {
+            type: 'lang',
+            regex: /markdown/g,
+            replace: 'showdown'
+          }
+        }
+      })
+    ],
+  })
+
+  const requiredModule = requireFromString(code)
+
+  expect(requiredModule.html).toMatchSnapshot()
 })

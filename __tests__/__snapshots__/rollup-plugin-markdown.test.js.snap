@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`adds a Showdown extension 1`] = `"<p>This is showdown.</p>"`;
+
 exports[`returns a module for the markdown file 1`] = `
 "<p>It's fair to say that React 16.8 and the introduction of<br />
 <a href=\\"https://reactjs.org/docs/hooks-intro.html\\">hooks</a> has really changed how we<br />

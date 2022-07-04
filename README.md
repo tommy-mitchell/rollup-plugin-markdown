@@ -34,8 +34,16 @@ export default {
     markdown({
       include?: 'src/md/*.md',
       exclude?: 'README.md',
-      showdownOptions?: '',
-      showdownExtensions?: '',
+      showdownOptions?: {
+        ghMentions: false
+      },
+      showdownExtensions?: {
+        "Markdown to Showdown": {
+          type: 'lang',
+          regex: /markdown/g,
+          replace: 'showdown'
+        }
+      },
       allowImports?: true,
       parseFrontMatterAsMarkdown?: false
     })
@@ -47,7 +55,7 @@ You can pass in six options:
 
 - `include` and `exclude`, which are globs to limit which file(s) the plugin is applied to.
 - `showdownOptions`, which are options to pass to the Showdown converter.
-- `showdownExtensions`, which is an array of Showdown extensions.
+- `showdownExtensions`, which is a dictionary of Showdown extensions.
 - `allowImports`, a flag to tell the plugin whether or not to export the Markdown files as JavaScript modules.
 - `parseFrontMatterAsMarkdown`, a flag that converts front-matter values into inline HTML (without enclosing `<p>/<p>` tags).
 
