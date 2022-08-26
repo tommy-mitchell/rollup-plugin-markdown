@@ -23,7 +23,7 @@ blogPost.filename // the filename that was imported ('blog-post.md')
 blogPost.path // the path to the file that was imported ('./src/blog-post.md')
 ```
 
-## Rollup configuration
+## Rollup Configuration
 
 ```js
 import markdown from '@tommy-mitchell/rollup-plugin-markdown'
@@ -57,8 +57,8 @@ export default {
 You can pass in six options:
 
 - `include` and `exclude`, which are globs to limit which file(s) the plugin is applied to.
-- `showdownOptions`, which are [options](sd-opts) to pass to the Showdown converter.
-- `showdownExtensions`, which is an array of either [Showdown extensions](sd-exts) or names of [globally-registered](sd-global) Showdown extensions.
+- `showdownOptions`, which are [options][sd-opts] to pass to the Showdown converter.
+- `showdownExtensions`, which is an array of either [Showdown extensions][sd-exts] or names of [globally-registered][sd-global] Showdown extensions.
 - `exportAsModule`, which is a flag to tell the plugin whether or not to export the Markdown files as JavaScript modules.
 - `parseFrontMatterAsMarkdown`, which is a flag to tell the plugin to convert front-matter values into inline HTML (without enclosing `<p></p>` tags).
 
@@ -71,6 +71,10 @@ The plugin will only parse `.md` files.
 [sd-global]: https://showdownjs.com/docs/create-extension/#implementation-concerns
 
 ## Changelog
+
+#### 0.6.0 [August 2022]
+
+- Fix Showdown extension logic. `options.showdownExtensions` is now an array that accepts extension implementations or extension names. (See [above](#rollup-configuration).)
 
 #### 0.5.2 [August 2022]
 
