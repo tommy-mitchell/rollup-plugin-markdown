@@ -3,13 +3,13 @@ import { Plugin } from 'rollup'
 import { FilterPattern } from '@rollup/pluginutils'
 
 /** A custom Showdown extension implementation. */
-interface NamedShowdownExtension extends ShowdownExtension {
+export interface NamedShowdownExtension extends ShowdownExtension {
   /** The name of the custom Showdown extension. */
   name: string
 }
 
 /** Options passed to the Markdown Rollup plugin. */
-interface MarkdownPluginOptions {
+export interface MarkdownPluginOptions {
   /**
    * A glob to limit which Markdown file(s) the plugin includes.
    * 
@@ -75,7 +75,7 @@ interface MarkdownPluginOptions {
    * @default []
    * 
    */
-   showdownExtensions?: (NamedShowdownExtension | string)[]
+  showdownExtensions?: (NamedShowdownExtension | string)[]
 
   /**
    * Whether or not to export the included Markdown file(s) as JavaScript modules.
@@ -84,7 +84,7 @@ interface MarkdownPluginOptions {
    * @default true
    * 
    */
-   exportAsModule?: boolean
+  exportAsModule?: boolean
 
   /**
    * Whether or not to parse a given included Markdown file's front-matter
@@ -124,7 +124,7 @@ interface MarkdownPluginOptions {
 }
 
 /** The available metadata exported with a given Markdown file. */
-interface MarkdownModuleMetadata {
+export interface MarkdownModuleMetadata {
   /** A JS object of the parsed Markdown front-matter. */
   metadata: {
     [key: string]: any
@@ -148,7 +148,7 @@ interface MarkdownModuleMetadata {
 }
 
 /** The exported parsed HTML and metadata for a given Markdown file. */
-interface MarkdownModuleExport extends MarkdownModuleMetadata {
+export interface MarkdownModuleExport extends MarkdownModuleMetadata {
   /** The output HTML from the parsed Markdown. */
   html: string
 }
@@ -159,4 +159,5 @@ interface MarkdownModuleExport extends MarkdownModuleMetadata {
  * @param options Options passed to the Markdown Rollup plugin.
  * @see https://github.com/tommy-mitchell/rollup-plugin-markdown
  */
-export default function markdownPlugin(options?: MarkdownPluginOptions): Plugin
+export function markdownPlugin(options?: MarkdownPluginOptions): Plugin
+export default markdownPlugin
