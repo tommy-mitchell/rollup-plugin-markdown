@@ -112,17 +112,71 @@ it('passes meta-data through Rollup', async () => {
   expect(rollupMetaData.path).toEqual(expectedPath)
 })
 
-it('adds a Showdown extension', async () => {
+it('adds a custom Showdown extension', async () => {
   const code = await bundleFileAndGetCode({
-    input: 'fixtures/markdown.md',
+    input: 'fixtures/extensions.md',
     plugins: [
       markdownPlugin({
-        showdownExtensions: {
-          'Markdown to Showdown': {
+        showdownOptions: {
+          ghMentions: false,
+        },
+        showdownExtensions: [
+          {
+            name: 'Markdown to Showdown',
             type: 'lang',
             regex: /markdown/g,
             replace: 'showdown',
           },
+        ],
+      }),
+    ],
+  })
+
+  const requiredModule = requireFromString(code)
+  expect(requiredModule.html).toMatchSnapshot()
+})
+
+it('adds a packaged Showdown extension', async () => {
+  // extension registers itself
+  require('showdown-twitter')
+
+  const code = await bundleFileAndGetCode({
+    input: 'fixtures/extensions.md',
+    plugins: [
+      markdownPlugin({
+        // include extension in this run's converter
+        showdownExtensions: [
+          'twitter',
+        ],
+        showdownOptions: {
+          ghMentions: false,
+        },
+      }),
+    ],
+  })
+
+  const requiredModule = requireFromString(code)
+  expect(requiredModule.html).toMatchSnapshot()
+})
+
+it('adds both a custom and a packaged Showdown extension', async () => {
+  require('showdown-twitter')
+
+  const code = await bundleFileAndGetCode({
+    input: 'fixtures/extensions.md',
+    plugins: [
+      markdownPlugin({
+        showdownExtensions: [
+          {
+            name: 'Markdown to Showdown',
+            type: 'lang',
+            regex: /markdown/g,
+            replace: 'showdown',
+          },
+          'twitter',
+        ],
+        showdownOptions: {
+          ghMentions: false,
         },
       }),
     ],

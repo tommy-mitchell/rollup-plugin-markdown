@@ -27,6 +27,7 @@ blogPost.path // the path to the file that was imported ('./src/blog-post.md')
 
 ```js
 import markdown from '@tommy-mitchell/rollup-plugin-markdown'
+import 'showdown-twitter'
 
 export default {
   input: 'your-app.js',
@@ -37,13 +38,15 @@ export default {
       showdownOptions: {
         ghMentions: false,
       },
-      showdownExtensions: {
-        'Markdown to Showdown': {
+      showdownExtensions: [
+        {
+          name: 'Markdown to Showdown',
           type: 'lang',
           regex: /markdown/g,
           replace: 'showdown',
         },
-      },
+        'twitter',
+      ],
       exportAsModule: true, // default
       parseFrontMatterAsMarkdown: false, // default
     }),
@@ -54,8 +57,8 @@ export default {
 You can pass in six options:
 
 - `include` and `exclude`, which are globs to limit which file(s) the plugin is applied to.
-- `showdownOptions`, which are options to pass to the Showdown converter.
-- `showdownExtensions`, which is a dictionary of Showdown extensions.
+- `showdownOptions`, which are [options](sd-opts) to pass to the Showdown converter.
+- `showdownExtensions`, which is an array of either [Showdown extensions](sd-exts) or names of [globally-registered](sd-global) Showdown extensions.
 - `exportAsModule`, which is a flag to tell the plugin whether or not to export the Markdown files as JavaScript modules.
 - `parseFrontMatterAsMarkdown`, which is a flag to tell the plugin to convert front-matter values into inline HTML (without enclosing `<p></p>` tags).
 
@@ -63,6 +66,9 @@ The plugin will only parse `.md` files.
 
 [showdown]: https://github.com/showdownjs/showdown
 [gray-matter]: https://github.com/jonschlinkert/gray-matter
+[sd-opts]: https://showdownjs.com/docs/available-options/
+[sd-exts]: https://showdownjs.com/docs/extensions/
+[sd-global]: https://showdownjs.com/docs/create-extension/#implementation-concerns
 
 ## Changelog
 

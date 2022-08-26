@@ -2,6 +2,12 @@ import { ConverterOptions, ShowdownExtension } from 'showdown'
 import { Plugin } from 'rollup'
 import { FilterPattern } from '@rollup/pluginutils'
 
+/** A custom Showdown extension implementation. */
+interface NamedShowdownExtension extends ShowdownExtension {
+  /** The name of the custom Showdown extension. */
+  name: string
+}
+
 /** Options passed to the Markdown Rollup plugin. */
 interface MarkdownPluginOptions {
   /**
@@ -35,34 +41,41 @@ interface MarkdownPluginOptions {
    * })
    * ```
    * 
-   * @default { }
+   * @default {}
    * 
    */
   showdownOptions?: ConverterOptions
 
   /**
-   * A dictionary of extensions for the Showdown converter to use.
+   * An array of extensions for the Showdown converter to use. An extension can
+   * either be a string corresponding to the name of a globally-registered
+   * Showdown extension, or an object representing a Showdown extension with a
+   * `name` property.
+   * 
+   * @see https://showdownjs.com/docs/extensions/
    * 
    * @example
    * 
    * ```ts
+   * require('showdown-twitter')
+   * 
    * markdown({
-   *   showdownExtensions: {
-   *     'Markdown to Showdown': {
+   *   showdownExtensions: [
+   *     {
+   *       name: 'Markdown to Showdown',
    *       type: 'lang',
    *       regex: /markdown/g,
    *       replace: 'showdown',
    *     },
-   *   },
+   *     'twitter',
+   *   ],
    * })
    * ```
    * 
-   * @default { }
+   * @default []
    * 
    */
-  showdownExtensions?: {
-    [extensionName: string]: ShowdownExtension
-  }
+   showdownExtensions?: (NamedShowdownExtension | string)[]
 
   /**
    * Whether or not to export the included Markdown file(s) as JavaScript modules.

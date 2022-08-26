@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`adds a Showdown extension 1`] = `"<p>This is showdown.</p>"`;
+exports[`adds a custom Showdown extension 1`] = `"<p>This is showdown. @Jack_Franklin</p>"`;
+
+exports[`adds a packaged Showdown extension 1`] = `"<p>This is markdown. <a href=\\"http://twitter.com/Jack_Franklin\\">@Jack_Franklin</a></p>"`;
+
+exports[`adds both a custom and a packaged Showdown extension 1`] = `"<p>This is showdown. <a href=\\"http://twitter.com/Jack_Franklin\\">@Jack_Franklin</a></p>"`;
 
 exports[`returns a module for the markdown file 1`] = `
 "<p>It's fair to say that React 16.8 and the introduction of<br />

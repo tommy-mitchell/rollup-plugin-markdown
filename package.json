@@ -23,7 +23,8 @@
   "devDependencies": {
     "jest": "^24.9.0",
     "prettier": "^1.19.1",
-    "rollup": "^2.68.0"
+    "rollup": "^2.68.0",
+    "showdown-twitter": "^1.1.0"
   },
   "dependencies": {
     "@rollup/pluginutils": "^4.2.1",

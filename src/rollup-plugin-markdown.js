@@ -10,19 +10,22 @@ const markdownPlugin = (options = {}) => {
     include,
     exclude,
     showdownOptions: showdownOpts = {},
-    showdownExtensions: showdownExtns = {},
+    showdownExtensions: showdownExtns = [],
     exportAsModule = true,
     parseFrontMatterAsMarkdown = false,
   } = options
 
-  Object.entries(showdownExtns).forEach(([name, extension]) => {
-    showdown.extension(name, extension)
-  })
-
   const converter = new showdown.Converter({
     metadata: true,
-    extensions: Object.keys(showdownExtns),
     ...showdownOpts,
+  })
+
+  showdownExtns.forEach(extension => {
+    if (typeof extension === 'string') {
+      converter.useExtension(extension)
+    } else {
+      converter.addExtension(extension, extension.name)
+    }
   })
 
   const filter = createFilter(include, exclude)
