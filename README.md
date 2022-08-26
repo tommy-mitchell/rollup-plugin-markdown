@@ -66,6 +66,10 @@ The plugin will only parse `.md` files.
 
 ## Changelog
 
+#### 0.5.1 [August 2022]
+
+- Fix inconsistencies/typos
+
 #### 0.5.0 [July 2022]
 
 - Pass module info as meta-data in Rollup, pass showdownExtensions as a dictionary, add type definitions
