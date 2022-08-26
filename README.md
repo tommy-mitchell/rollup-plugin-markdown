@@ -66,13 +66,17 @@ The plugin will only parse `.md` files.
 
 ## Changelog
 
+#### 0.5.2 [August 2022]
+
+- Rename `allowImports` to `exportAsModule`, update to `@rollup/pluginutils`.
+
 #### 0.5.1 [August 2022]
 
-- Fix inconsistencies/typos
+- Fix inconsistencies/typos.
 
 #### 0.5.0 [July 2022]
 
-- Pass module info as meta-data in Rollup, pass showdownExtensions as a dictionary, add type definitions
+- Pass module info as meta-data in Rollup, pass showdownExtensions as a dictionary, add type definitions.
 
 #### 0.4.0 [June 2022]
 
@@ -88,4 +92,4 @@ The plugin will only parse `.md` files.
 
 #### 0.1.0
 
-- Initial release
+- Initial release.
