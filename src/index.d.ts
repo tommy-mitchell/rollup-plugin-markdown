@@ -1,25 +1,25 @@
-import { ConverterOptions, ShowdownExtensions } from "showdown";
-import { Plugin } from "rollup";
+import { ConverterOptions, ShowdownExtension } from 'showdown'
+import { Plugin } from 'rollup'
 
 /** Options passed to the Markdown Rollup plugin. */
 interface MarkdownPluginOptions {
   /**
    * A glob to limit which Markdown file(s) the plugin includes.
    * 
-   * @example "src/md/*.md"
-   * @default ""
+   * @example 'src/md/*.md'
+   * @default all
    * 
    */
-  include?: string;
+  include?: string
 
   /**
    * A glob to limit which Markdown file(s) the plugin excludes.
    * 
-   * @example "README.md"
-   * @default ""
+   * @example 'README.md'
+   * @default none
    * 
    */
-  exclude?: string;
+  exclude?: string
 
   /**
    * An object of options to pass to the Showdown converter.
@@ -27,19 +27,17 @@ interface MarkdownPluginOptions {
    * @example
    * 
    * ```ts
-   * import markdown from 'rollup-plugin-markdown'
-   * 
    * markdown({
    *   showdownOptions: {
-   *     ghMentions: false
-   *   }
+   *     ghMentions: false,
+   *   },
    * })
    * ```
    * 
-   * @defualt { }
+   * @default { }
    * 
    */
-  showdownOptions?: ConverterOptions;
+  showdownOptions?: ConverterOptions
 
   /**
    * A dictionary of extensions for the Showdown converter to use.
@@ -47,36 +45,36 @@ interface MarkdownPluginOptions {
    * @example
    * 
    * ```ts
-   * import markdown from 'rollup-plugin-markdown'
-   * 
    * markdown({
    *   showdownExtensions: {
-   *     "Markdown to Showdown": {
+   *     'Markdown to Showdown': {
    *       type: 'lang',
    *       regex: /markdown/g,
-   *       replace: 'showdown'
-   *     }
-   *   }
+   *       replace: 'showdown',
+   *     },
+   *   },
    * })
    * ```
    * 
-   * @defualt { }
+   * @default { }
    * 
    */
-  showdownExtensions?: ShowdownExtensions;
+  showdownExtensions?: {
+    [extensionName: string]: ShowdownExtension
+  }
 
   /**
    * Whether or not to export the included Markdown file(s) as JavaScript modules.
-   * If false, passed parsed Markdown as HTML thorugh the Rollup build process.
+   * If false, passes parsed Markdown as HTML through the Rollup build process.
    * 
    * @default true
    * 
    */
-  allowImports: boolean;
+  allowImports?: boolean
 
   /**
-   * Whether or not to parse the a given included Markdown file's front-matter
-   * through the Markdown converter. If true, the front-matter values are
+   * Whether or not to parse a given included Markdown file's front-matter
+   * through the Markdown converter. If `true`, the front-matter values are
    * converted to inline HTML (e.g., without enclosing `<p></p>` tags).
    * 
    * @example
@@ -89,56 +87,56 @@ interface MarkdownPluginOptions {
    * ---
    * ```
    * 
-   * **parseFrontMatterAsMarkdown** = false:
+   * **parseFrontMatterAsMarkdown** = `false`:
    *
    * ```ts
    * {
-   *   name: "My name is *John Doe*." 
+   *   name: 'My name is *John Doe*.'
    * }
    * ```
    * 
-   * **parseFrontMatterAsMarkdown** = true:
+   * **parseFrontMatterAsMarkdown** = `true`:
    *
    * ```ts
    * {
-   *   name: "My name is <em>John Doe</em>." 
+   *   name: 'My name is <em>John Doe</em>.'
    * }
    * ```
    * 
    * @default false
    * 
    */
-  parseFrontMatterAsMarkdown: boolean;
+  parseFrontMatterAsMarkdown?: boolean
 }
 
 /** The available metadata exported with a given Markdown file. */
 interface MarkdownModuleMetadata {
   /** A JS object of the parsed Markdown front-matter. */
   metadata: {
-    [key: string]: any;
-  };
+    [key: string]: any
+  }
 
   /**
    * The name of the parsed Markdown file.
    * 
-   * @example "blog-post.md"
+   * @example 'blog-post.md'
    * 
    */
-  filename: string;
+  filename: string
 
   /**
    * The absolute path to the parsed Markdown file.
    * 
-   * @example "~/src/blog-post.md"
+   * @example '~/src/blog-post.md'
    * 
    */
-  path: string;
+  path: string
 }
 
 /** The exported parsed HTML and metadata for a given Markdown file. */
 interface MarkdownModuleExport extends MarkdownModuleMetadata {
   /** The output HTML from the parsed Markdown. */
-  html: string;
+  html: string
 }
 
 /**
@@ -147,4 +145,4 @@ interface MarkdownModuleExport extends MarkdownModuleMetadata {
  * @param options Options passed to the Markdown Rollup plugin.
  * @see https://github.com/tommy-mitchell/rollup-plugin-markdown
  */
-export default function markdownPlugin(options?: MarkdownPluginOptions): Plugin;
+export default function markdownPlugin(options?: MarkdownPluginOptions): Plugin

@@ -22,7 +22,7 @@ const markdownPlugin = (options = {}) => {
   const converter = new showdown.Converter({
     metadata: true,
     extensions: Object.keys(showdownExtns),
-    ...showdownOpts
+    ...showdownOpts,
   })
 
   const filter = createFilter(include, exclude)

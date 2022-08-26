@@ -46,16 +46,12 @@ const expectedMetadata = {
   intro: 'A short post today about an easy tactic to avoid your <em>useEffect</em> calls becoming recursive when setting state.',
   about: [
     {
-      author: 'John Doe'
+      author: 'John Doe',
     },
     {
-      keywords: [
-        'React',
-        'useEffect',
-        'recursion'
-      ]
+      keywords: ['React', 'useEffect', 'recursion'],
     },
-  ]
+  ],
 }
 const expectedFilename = 'test.md'
 const expectedPath = path.resolve(path.join(__dirname, 'fixtures/test.md'))
@@ -84,8 +80,8 @@ it('does not return a module for the markdown file', async () => {
       input: 'fixtures/test.md',
       plugins: [
         markdownPlugin({
-          allowImports: false
-        })
+          allowImports: false,
+        }),
       ],
     })
   ).rejects.toThrow(
@@ -94,7 +90,7 @@ it('does not return a module for the markdown file', async () => {
 })
 
 it('passes meta-data through Rollup', async () => {
-  let rollupMetaData;
+  let rollupMetaData
 
   await bundleFileAndGetCode({
     input: 'fixtures/test.md',
@@ -122,17 +118,16 @@ it('adds a Showdown extension', async () => {
     plugins: [
       markdownPlugin({
         showdownExtensions: {
-          "Markdown to Showdown": {
+          'Markdown to Showdown': {
             type: 'lang',
             regex: /markdown/g,
-            replace: 'showdown'
-          }
-        }
-      })
+            replace: 'showdown',
+          },
+        },
+      }),
     ],
   })
 
   const requiredModule = requireFromString(code)
-
   expect(requiredModule.html).toMatchSnapshot()
 })
