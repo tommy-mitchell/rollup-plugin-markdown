@@ -71,7 +71,7 @@ interface MarkdownPluginOptions {
    * @default true
    * 
    */
-  allowImports?: boolean
+   exportAsModule?: boolean
 
   /**
    * Whether or not to parse a given included Markdown file's front-matter

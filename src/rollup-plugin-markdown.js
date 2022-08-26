@@ -11,7 +11,7 @@ const markdownPlugin = (options = {}) => {
     exclude,
     showdownOptions: showdownOpts = {},
     showdownExtensions: showdownExtns = {},
-    allowImports = true,
+    exportAsModule = true,
     parseFrontMatterAsMarkdown = false,
   } = options
 
@@ -64,7 +64,7 @@ const markdownPlugin = (options = {}) => {
       })
 
       return {
-        code: allowImports ? `export default ${exportFromModule}` : html,
+        code: exportAsModule ? `export default ${exportFromModule}` : html,
         meta: {
           markdown: meta,
         },

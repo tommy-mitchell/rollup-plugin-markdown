@@ -80,7 +80,7 @@ it('does not return a module for the markdown file', async () => {
       input: 'fixtures/test.md',
       plugins: [
         markdownPlugin({
-          allowImports: false,
+          exportAsModule: false,
         }),
       ],
     })
