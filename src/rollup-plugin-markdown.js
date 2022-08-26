@@ -1,4 +1,4 @@
-const { createFilter } = require('rollup-pluginutils')
+const { createFilter } = require('@rollup/pluginutils')
 const path = require('path')
 const matter = require('gray-matter')
 const showdown = require('showdown')

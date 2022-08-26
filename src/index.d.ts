@@ -1,5 +1,6 @@
 import { ConverterOptions, ShowdownExtension } from 'showdown'
 import { Plugin } from 'rollup'
+import { FilterPattern } from '@rollup/pluginutils'
 
 /** Options passed to the Markdown Rollup plugin. */
 interface MarkdownPluginOptions {
@@ -10,7 +11,7 @@ interface MarkdownPluginOptions {
    * @default all
    * 
    */
-  include?: string
+  include?: FilterPattern
 
   /**
    * A glob to limit which Markdown file(s) the plugin excludes.
@@ -19,7 +20,7 @@ interface MarkdownPluginOptions {
    * @default none
    * 
    */
-  exclude?: string
+  exclude?: FilterPattern
 
   /**
    * An object of options to pass to the Showdown converter.

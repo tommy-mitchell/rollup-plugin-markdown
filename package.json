@@ -26,10 +26,10 @@
     "rollup": "^2.68.0"
   },
   "dependencies": {
+    "@rollup/pluginutils": "^4.2.1",
     "@types/rollup": "^0.54.0",
     "@types/showdown": "^2.0.0",
     "gray-matter": "^4.0.2",
-    "rollup-pluginutils": "^2.8.2",
     "showdown": "^2.1.0"
   }
 }
